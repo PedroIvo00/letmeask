@@ -7,11 +7,14 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { FormEvent, useState } from 'react';
 import { database } from '../services/firebase';
+import { useTheme } from '../hooks/useTheme';
+import { ToggleButton } from '../components/ToggleButton';
 
 export function Home() {
     const history = useHistory();
     const { user, signInWithGoogle } = useAuth();
     const [roomCode, setRoomCode] = useState('');
+    const { theme, toggleTheme } = useTheme();
 
     // CHECA SE O USUÁRIO ESTÁ LOGADO
     async function handleCreateRoom() {
@@ -46,7 +49,7 @@ export function Home() {
 
     // TELA DE LOGIN
     return (
-        <div id="page-auth">
+        <div id="page-auth" className={theme}>
             <aside>
                 <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas" />
                 <strong>Crie salas de Q&amp;A ao-vivo</strong>
@@ -54,6 +57,10 @@ export function Home() {
             </aside>
             <main>
                 <div className="main-content">
+                    <ToggleButton
+                        toggle={theme}
+                        type="checkbox"
+                        onChange={toggleTheme} />
                     <img src={logoImg} alt="LetMeAsk" />
                     <button onClick={handleCreateRoom} className="create-room">
                         <img src={googleIconImg} alt="Logo do Google" />
@@ -75,6 +82,6 @@ export function Home() {
                     </form>
                 </div>
             </main>
-        </div>
+        </div >
     )
 }

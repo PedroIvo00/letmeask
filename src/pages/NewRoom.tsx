@@ -6,12 +6,15 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { FormEvent, useState } from 'react'
 import { database } from '../services/firebase';
+import { useTheme } from '../hooks/useTheme';
+import { ToggleButton } from '../components/ToggleButton';
 
 
 export function NewRoom() {
     const { user } = useAuth();
     const history = useHistory();
     const [newRoom, setNewRoom] = useState('');
+    const { theme, toggleTheme } = useTheme();
 
     async function handleCreateRoom(event: FormEvent) {
         event.preventDefault();
@@ -31,7 +34,7 @@ export function NewRoom() {
     }
 
     return (
-        <div id="page-auth">
+        <div id="page-auth" className={theme}>
             <aside>
                 <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas" />
                 <strong>Crie salas de Q&amp;A ao-vivo</strong>
@@ -39,6 +42,10 @@ export function NewRoom() {
             </aside>
             <main>
                 <div className="main-content">
+                    <ToggleButton
+                        toggle={theme}
+                        type="checkbox"
+                        onChange={toggleTheme} />
                     <img src={logoImg} alt="LetMeAsk" />
                     <h2>Criar uma nova sala</h2>
                     {/* FORMULARIO QUE RECOLHE INFORMAÇÕES PARA CRIAR NOVA SALA */}

@@ -8,6 +8,8 @@ import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 import { Questions } from '../components/Question';
 import { useRoom } from '../hooks/useRoom';
+import { ToggleButton } from '../components/ToggleButton';
+import { useTheme } from '../hooks/useTheme';
 
 
 type RoomParams = {
@@ -20,6 +22,7 @@ export function Room() {
     const roomId = params.id;
     const [newQuestion, setNewQuestion] = useState('');
     const { user } = useAuth();
+    const { theme, toggleTheme } = useTheme();
 
     // USA HOOK USEROOM PARA PUXAR AS PERGUNTAS
 
@@ -64,9 +67,13 @@ export function Room() {
 
 
     return (
-        <div id="page-room">
+        <div id="page-room" className={theme}>
             <header>
                 <div className="content">
+                    <ToggleButton
+                        toggle={theme}
+                        type="checkbox"
+                        onChange={toggleTheme} />
                     <img src={logoImg} alt="LetMeAsk" />
                     <RoomCode code={roomId} />
                 </div>

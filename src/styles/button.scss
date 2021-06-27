@@ -14,6 +14,7 @@
 
     img {
         margin-right: 8px;
+        filter: hue-rotate(110deg);
     }
 
     // CSS APLICADO CASO BUTTON ESTEJA COM OUTLINED
@@ -32,4 +33,4 @@
         opacity: 0.6;
         cursor: not-allowed;
     }
-}
+    }

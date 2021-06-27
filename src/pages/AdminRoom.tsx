@@ -10,6 +10,8 @@ import deleteImg from '../assets/images/delete.svg';
 import { database } from '../services/firebase';
 import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
+import { useTheme } from '../hooks/useTheme';
+import { ToggleButton } from '../components/ToggleButton';
 
 type RoomParams = {
     id: string;
@@ -19,6 +21,7 @@ export function AdminRoom() {
     const history = useHistory();
     const params = useParams<RoomParams>();
     const roomId = params.id;
+    const { theme, toggleTheme } = useTheme();
     //const { user } = useAuth();
 
     // USA HOOK USEROOM PARA PUXAR AS PERGUNTAS
@@ -54,9 +57,13 @@ export function AdminRoom() {
     }
 
     return (
-        <div id="page-room">
+        <div id="page-room" className={theme}>
             <header>
                 <div className="content">
+                    <ToggleButton
+                        toggle={theme}
+                        type="checkbox"
+                        onChange={toggleTheme} />
                     <img src={logoImg} alt="LetMeAsk" />
                     <div>
                         <RoomCode code={roomId} />
